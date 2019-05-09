@@ -14,7 +14,7 @@ function getProfile(username) {
 
 function gitRepos(username) {
  
-    return axios.get("https://api.github.com/users/" + username + "/repos" + "&per_page=100")
+    return axios.get('https://api.github.com/users/' + username + '/repos')
              
 
 }

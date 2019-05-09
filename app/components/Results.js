@@ -19,9 +19,9 @@ class Results extends React.Component {
         api.battle([
             players.playerOneName,
             players.playerTwoName
-        ]).then(function(players) {
+        ]).then(function(results) {
             
-            if(players === null) { //if error
+            if(results === null) { //if error
                 return this.setState(()=> {
                     return {
                         error: "Looks like an error occurred",
@@ -49,8 +49,31 @@ class Results extends React.Component {
         const loser = this.state.loser;
         const loading = this.state.loading;
         
+        if(loading === true) {
+            return <p>Loading</p>
+        }
+        if(error) {
+            return (
+            <div>
+                <p>{error}</p>
+                <Link to="/battle">Reset</Link>
+            </div>
+            )
+        }
+        
       return (
-        <div>Results</div>
+        <div className="row">
+          <Player 
+            label="Winner"
+            score={winner.score}
+            profile={winner.profile}
+          />
+          <Player 
+            label="Loser"
+            score={loser.score}
+            profile={loser.profile}
+          />
+          </div>
       )
     }
 }
