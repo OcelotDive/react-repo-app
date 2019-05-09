@@ -23,7 +23,7 @@ function gitRepos(username) {
 function getStarCount(repos) {
     return repos.data.reduce((count, repo) => {
         return count + repo.stargazers_count;
-    })
+    },0)
 }
 
 function calculateScore(profile, repos) {
@@ -47,7 +47,7 @@ function getUserData(player) {
         console.log(data)
         const profile = data[0];
         const repos = data[1];
-        
+        console.log(repos)
         return {
             profile: profile, 
             score: calculateScore(profile, repos)

@@ -2,6 +2,43 @@ const React = require("react");
 const queryString = require('query-string');
 const api = require('../utils/api');
 const Link = require("react-router-dom");
+const PropTypes = require("prop-types");
+const PlayerPreview = require("./PlayerPreview");
+
+function Profile (props) {
+    const info = props.info;
+    return (
+        <PlayerPreview avatar={info.avatar_url} username={info.login}>
+            <ul className="space-list-items">
+                {info.name && <li>{info.name}</li>}
+                {info.location && <li>{info.location}</li>}
+                {info.company && <li>{info.company}</li>}
+                <li>Followers: {info.followers}</li>
+                <li>Following: {info.following}</li>
+                <li>Public Repos: {info.public_repos}</li>
+                {info.blog && <li><a href={info.blog}>{info.blog}</a></li>}
+            </ul>
+        </PlayerPreview>
+    )
+}
+
+
+function Player(props) {
+    return(
+        <div>
+            <h1 className="header">{props.label}</h1>
+            <h3 style={{textAlign: "center"}}>Score: {props.score}</h3>
+            <Profile info={props.profile} />
+        </div>
+    
+    )
+}
+
+Player.propTypes = {
+    label: PropTypes.string.isRequired,
+    score: PropTypes.number.isRequired,
+    profile: PropTypes.object.isRequired
+}
 
 class Results extends React.Component {
     constructor(props) {
@@ -19,9 +56,9 @@ class Results extends React.Component {
         api.battle([
             players.playerOneName,
             players.playerTwoName
-        ]).then(function(results) {
+        ]).then(function(players) {
             
-            if(results === null) { //if error
+            if(players === null) { //if error
                 return this.setState(()=> {
                     return {
                         error: "Looks like an error occurred",
@@ -33,8 +70,8 @@ class Results extends React.Component {
             this.setState(()=> {
                 return {
                     error: null,
-                    winner: results[0],
-                    loser: results[1],
+                    winner: players[0],
+                    loser: players[1],
                     loading: false
                 }
             });
@@ -48,6 +85,7 @@ class Results extends React.Component {
         const winner = this.state.winner;
         const loser = this.state.loser;
         const loading = this.state.loading;
+        
         
         if(loading === true) {
             return <p>Loading</p>
@@ -63,6 +101,7 @@ class Results extends React.Component {
         
       return (
         <div className="row">
+          
           <Player 
             label="Winner"
             score={winner.score}
