@@ -15,30 +15,37 @@ class Loading extends React.Component {
     componentDidMount() {
         
        let text = this.props.text;
-        let originalText = text;
+        let originalText = this.props.text;
         const stopper = this.props.text.length;
         let index = 0;
         this.interval = window.setInterval(function() { 
             if(index === stopper) {
-                text === originalText;
-                index === 0;
+                text = originalText;
+                console.log(originalText)
+                index = 0;
             }
             else {
                 text = text.split("");
                 text[index] = text[index].toUpperCase();
+                if(text[index - 1] !== undefined) {
+                text[index - 1] = text[index -1 ].toLowerCase();
+                }
                 text = text.join("");
                 index++
             }
-            
             this.setState(function() {
-                
                 //always return new state rather than mutating the existing state
                 return {
                     text: text
                 }
             })
     //bind the interval to the component with .bind        
-    }.bind(this),100)
+    }.bind(this),50)
+    }
+    
+    //make sure to clear interval on unmount
+    componentWillUnmount() {
+        window.clearInterval(this.interval);
     }
          
 
