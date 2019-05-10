@@ -1,6 +1,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const api = require('../utils/api');
+const Loading = require('./Loading');
 
 //no state so changed to stateless functional component
 //this.props just becomes props
@@ -97,7 +98,7 @@ class Popular extends React.Component {
             {/*<Test/>*/}
             <SelectLanguage selectedLanguage={this.state.selectedLanguage} onSelect={this.updateLanguage} />
             {!this.state.repos
-            ? <p>Loading</p>
+            ? <Loading />
             :
             <RepoGrid repos={this.state.repos} />}
             </div>

@@ -158,3 +158,4 @@ class Battle extends React.Component {
 }
 
 module.exports = Battle;
+
