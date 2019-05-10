@@ -98,7 +98,7 @@ class Popular extends React.Component {
             {/*<Test/>*/}
             <SelectLanguage selectedLanguage={this.state.selectedLanguage} onSelect={this.updateLanguage} />
             {!this.state.repos
-            ? <Loading />
+            ? <Loading text="Downloading" />
             :
             <RepoGrid repos={this.state.repos} />}
             </div>
