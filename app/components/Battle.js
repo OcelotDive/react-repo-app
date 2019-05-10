@@ -4,8 +4,6 @@ const Link = require('react-router-dom').Link;
 const PlayerPreview = require('./PlayerPreview');
 
 
-
-
 class PlayerInput extends React.Component {
     constructor(props) {
         super(props);
@@ -114,7 +112,8 @@ class Battle extends React.Component {
             <div>
                 <div className="row">
                     {!playerOneName &&
-                        <PlayerInput  
+                        <PlayerInput
+                        id='playerOne'
                         label='Player One' 
                         onSubmit={this.handleSubmit}/>}
             
@@ -128,7 +127,8 @@ class Battle extends React.Component {
                         </PlayerPreview>}
             
                     {!playerTwoName &&
-                        <PlayerInput  
+                        <PlayerInput
+                        id='playerTwo'
                         label='Player Two' 
                         onSubmit={this.handleSubmit}/>}
             
